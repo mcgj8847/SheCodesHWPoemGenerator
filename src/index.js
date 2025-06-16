@@ -1,11 +1,21 @@
-function generatePoem(event) {
-  event.preventDefault();
+function showPoem(response) {
   new Typewriter("#poem", {
-    strings:
-      "O, never say that I was false of heart,Though absence seemed my flame to qualify.",
+    strings: response.data.answer,
     autoStart: true,
     cursor: "",
   });
+}
+
+function generatePoem(event) {
+  event.preventDefault();
+  let subjectElement = document.querySelector("#subject");
+  let apiKey = `501af34b402d4e44o6622bceat198ee8`;
+  let prompt = `Generate a  4 line poem about ${subjectElement.value}`;
+  let context =
+    "You are an AI with vast knowledge of poems. Give a different answers each time. Sign the poem with SheCodes AI in <strong>.Separate each line with <br/>";
+  let apiUrl = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${apiKey}`;
+  console.log(prompt);
+  axios.get(apiUrl).then(showPoem);
 }
 
 let poemForm = document.querySelector("#form");

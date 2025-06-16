@@ -14,7 +14,10 @@ function generatePoem(event) {
   let context =
     "You are an AI with vast knowledge of poems. Give a different answers each time. Sign the poem with SheCodes AI in <strong>.Separate each line with <br/>";
   let apiUrl = `https://api.shecodes.io/ai/v1/generate?prompt=${prompt}&context=${context}&key=${apiKey}`;
-  console.log(prompt);
+
+  let poemElement = document.querySelector("#poem");
+  poemElement.classList.remove("hidden");
+  poemElement.innerHTML = `Please wait while we generate a poem about ${subjectElement.value}<span class=blink>...</span>`;
   axios.get(apiUrl).then(showPoem);
 }
 
